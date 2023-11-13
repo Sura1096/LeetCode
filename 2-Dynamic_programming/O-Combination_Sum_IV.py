@@ -1,5 +1,4 @@
 from typing import List
-from functools import cache
 
 
 '''
@@ -38,17 +37,14 @@ What limitation we need to add to the question to allow negative numbers?
 
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
-        @cache
-        def dp(n=0):
-            # base case
-            if n >= target:
-                return n == target
+        dp = {0: 1}
 
-            result = 0
+        for total in range(1, target+1):
+            dp[total] = 0
             for num in nums:
-                result += dp(num + n)
-            return result
-        return dp()
+                dp[total] += dp.get(total-num, 0)
+                
+        return dp[target]
 
 
 sol = Solution()
