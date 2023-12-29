@@ -44,4 +44,13 @@ class ListNode:
 
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
-        pass
+        cur = head
+        dct = {}
+
+        while cur:
+            if cur.next in dct:
+                return True
+            else:
+                dct[cur.next] = cur
+            cur = cur.next
+        return False
